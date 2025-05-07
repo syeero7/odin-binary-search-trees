@@ -121,4 +121,63 @@ export default class Tree {
 
     return search(this.#root, value);
   }
+
+  levelOrder(callback) {
+    if (typeof callback !== "function") throw new Error(`${callback} is not a function`);
+    if (!this.#root) return;
+
+    const queue = [];
+    queue.push(this.#root);
+
+    while (queue.length) {
+      const node = queue.shift();
+
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+
+      callback(structuredClone(node));
+    }
+  }
+
+  inOrder(callback) {
+    if (typeof callback !== "function") throw new Error(`${callback} is not a function`);
+
+    const traverse = (root) => {
+      if (!root) return;
+
+      traverse(root.left);
+      callback(structuredClone(root));
+      traverse(root.right);
+    };
+
+    traverse(this.#root);
+  }
+
+  preOrder(callback) {
+    if (typeof callback !== "function") throw new Error(`${callback} is not a function`);
+
+    const traverse = (root) => {
+      if (!root) return;
+
+      callback(structuredClone(root));
+      traverse(root.left);
+      traverse(root.right);
+    };
+
+    traverse(this.#root);
+  }
+
+  postOrder(callback) {
+    if (typeof callback !== "function") throw new Error(`${callback} is not a function`);
+
+    const traverse = (root) => {
+      if (!root) return;
+
+      traverse(root.left);
+      traverse(root.right);
+      callback(structuredClone(root));
+    };
+
+    traverse(this.#root);
+  }
 }
