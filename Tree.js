@@ -124,9 +124,9 @@ export default class Tree {
       if (root.data === val) return structuredClone(root);
 
       if (root.data > val) {
-        search(root.left, val);
+        return search(root.left, val);
       } else {
-        search(root.right, val);
+        return search(root.right, val);
       }
     };
 
