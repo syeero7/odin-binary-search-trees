@@ -226,4 +226,31 @@ export default class Tree {
 
     return null;
   }
+
+  depth(value) {
+    if (!this.#root) return null;
+
+    let count = -1;
+    const queue = [];
+    queue.push(this.#root);
+
+    while (queue.length) {
+      let nodeCount = queue.length;
+      count++;
+
+      for (let i = 0; i < nodeCount; i++) {
+        const node = queue.shift();
+
+        if (node.data === value) return count;
+
+        if (node.data > value) {
+          if (node.left) queue.push(node.left);
+        } else {
+          if (node.right) queue.push(node.right);
+        }
+      }
+    }
+
+    return null;
+  }
 }
