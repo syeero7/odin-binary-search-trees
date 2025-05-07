@@ -180,4 +180,39 @@ export default class Tree {
 
     traverse(this.#root);
   }
+
+  height(value) {
+    if (!this.#root) return null;
+    let current = this.#root;
+
+    // prettier-ignore
+    while (current) {
+
+      if (current.data === value) {
+
+        const queue = [];
+        let count = -1;
+        queue.push(current);
+
+        while (queue.length) {
+          let nodeCount = queue.length;
+          count++;
+
+          for (let i = 0; i < nodeCount; i++) {
+            const node = queue.shift();
+
+            if (node.left) queue.push(node.left);
+            if (node.right) queue.push(node.right);
+          }
+
+        }
+
+        return count;
+      }
+
+      current = current.data > value ? current.left : current.right;
+    }
+
+    return null;
+  }
 }
