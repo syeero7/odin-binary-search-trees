@@ -253,4 +253,27 @@ export default class Tree {
 
     return null;
   }
+
+  isBalanced() {
+    if (!this.#root) return true;
+
+    let balanced;
+    const queue = [];
+    queue.push(this.#root);
+
+    while (queue.length) {
+      const { left, right } = queue.shift();
+
+      if (left) queue.push(left);
+      if (right) queue.push(right);
+
+      const leftHeight = left ? this.height(left.data) : -1;
+      const rightHeight = right ? this.height(right.data) : -1;
+
+      balanced = Math.abs(leftHeight - rightHeight) <= 1;
+      if (!balanced) return balanced;
+    }
+
+    return balanced;
+  }
 }
