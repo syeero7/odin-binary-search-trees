@@ -276,4 +276,23 @@ export default class Tree {
 
     return balanced;
   }
+
+  rebalance() {
+    if (!this.#root) return;
+
+    const data = [];
+    const queue = [];
+    queue.push(this.#root);
+
+    while (queue.length) {
+      const node = queue.shift();
+
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+
+      data.push(node.data);
+    }
+
+    this.buildTree(data);
+  }
 }
